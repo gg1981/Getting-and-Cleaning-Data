@@ -6,8 +6,8 @@
 #4 Appropriately labels the data set with descriptive variable names. 
 #5 From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
-setwd("C:/Users/pa041093/Desktop/TEMP")
-
+#setwd("C:/Users/pa041093/Desktop/TEMP")
+setwd("~/Desktop/DATA SPECIALIZATION/3 - Getting and cleaning/")
 #Step 1
 
 #read the training data
