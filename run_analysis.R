@@ -41,17 +41,20 @@ x_test[, 563] <- subject_test
 data<-rbind(x_train,x_test)
 
 
-#Step 2
 
+
+#Step 2
 features <- read.table("UCI HAR Dataset/features.txt", col.names=c("feature_id", "feature_label"), stringsAsFactors=FALSE )  #561
 
 #rename the headers of the columns
 colnames(data)<-c(features$feature_label,"activity_id", "sub_id")
 
+
+
 #extract the data with "mean" or "std"
 temp<-grep("mean",names(data))
 temp<-c(temp,grep("std",names(data)))
-temp<-as.numeric(c(temp,562,563))#add last two columns with subject_id and activity_id
+temp<-as.numeric(c(temp,562,563)) #add last two columns with subject_id and activity_id
 
 data1<-data[,temp]
 
@@ -71,18 +74,18 @@ data2 = merge(x=data1, y=activity_labels)
 temp<-names(data2)
 
 temp<-gsub("[()]", "", temp)
-temp<-gsub("-", " ", temp)
-temp<-gsub("mean", " Mean", temp)
-temp<-gsub("std", " Standard Deviation", temp)
+temp<-gsub("-", "", temp)
+temp<-gsub("mean", "Mean", temp)
+temp<-gsub("std", "StandardDeviation", temp)
 temp<-gsub("BodyBody", "Body", temp)
 
-temp
+#temp
 colnames(data2)<-temp
 
 
 #step 5 From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
-tidy<-aggregate(data2, by=list(subject = data2$sub_id, activity = data2$activity_id), FUN=mean, na.rm=TRUE)
+tidy<-aggregate(data2[,2:80], by=list(subject = data2$sub_id, activity = data2$activity_label), FUN=mean, na.rm=TRUE)
 
-write.table(tidy, "Tidy_Data.csv", sep=",")
+write.table(tidy, "Tidy_Data.txt", sep=",")
   
